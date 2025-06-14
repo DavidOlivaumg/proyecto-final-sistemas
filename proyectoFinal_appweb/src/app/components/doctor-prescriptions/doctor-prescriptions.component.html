@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <h2>Recetas Médicas</h2>
+  
+  <button class="btn btn-primary mb-3" (click)="showCreateForm = !showCreateForm">
+    {{ showCreateForm ? 'Cancelar' : 'Nueva Receta' }}
+  </button>
+
+  <div class="card mb-4" *ngIf="showCreateForm">
+    <div class="card-body">
+      <h5 class="card-title">Crear Nueva Receta</h5>
+      <form (ngSubmit)="createPrescription()">
+        <div class="mb-3">
+          <label for="medication" class="form-label">Medicamento</label>
+          <input type="text" class="form-control" id="medication" 
+                 [(ngModel)]="newPrescription.medication" name="medication" required>
+        </div>
+        <div class="mb-3">
+          <label for="dosage" class="form-label">Dosis</label>
+          <input type="text" class="form-control" id="dosage" 
+                 [(ngModel)]="newPrescription.dosage" name="dosage" required>
+        </div>
+        <div class="mb-3">
+          <label for="instructions" class="form-label">Instrucciones</label>
+          <textarea class="form-control" id="instructions" rows="3"
+                    [(ngModel)]="newPrescription.instructions" name="instructions"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="prescriptionDate" class="form-label">Fecha</label>
+          <input type="date" class="form-control" id="prescriptionDate" 
+                 [(ngModel)]="newPrescription.prescriptionDate" name="prescriptionDate" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Receta</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Paciente</th>
+          <th>Medicamento</th>
+          <th>Dosis</th>
+          <th>Instrucciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prescription of prescriptions">
+          <td>{{ prescription.prescriptionDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ prescription.patient.firstName }} {{ prescription.patient.lastName }}</td>
+          <td>{{ prescription.medication }}</td>
+          <td>{{ prescription.dosage }}</td>
+          <td>{{ prescription.instructions }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

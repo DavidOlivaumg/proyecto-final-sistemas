@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <h2>Mi Horario</h2>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Agregar Horario</h5>
+      <form (ngSubmit)="addSchedule()">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="dayOfWeek" class="form-label">Día de la semana</label>
+            <select class="form-select" id="dayOfWeek" [(ngModel)]="newSchedule.dayOfWeek" name="dayOfWeek" required>
+              <option *ngFor="let day of daysOfWeek" [value]="day">{{ day | titlecase }}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="startTime" class="form-label">Hora de inicio</label>
+            <input type="time" class="form-control" id="startTime" 
+                   [(ngModel)]="newSchedule.startTime" name="startTime" required>
+          </div>
+          <div class="col-md-4">
+            <label for="endTime" class="form-label">Hora de fin</label>
+            <input type="time" class="form-control" id="endTime" 
+                   [(ngModel)]="newSchedule.endTime" name="endTime" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Horario</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Día</th>
+          <th>Horario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let schedule of schedules">
+          <td>{{ schedule.dayOfWeek | titlecase }}</td>
+          <td>{{ schedule.startTime }} - {{ schedule.endTime }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteSchedule(schedule.scheduleId)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

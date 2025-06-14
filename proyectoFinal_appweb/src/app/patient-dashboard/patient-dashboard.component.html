@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Panel del Paciente</h2>
+    <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Mis Citas</h5>
+          <p class="card-text">Administra tus citas médicas.</p>
+          <a routerLink="/patient/appointments" class="btn btn-primary">Ver Citas</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Mis Recetas</h5>
+          <p class="card-text">Consulta tus recetas médicas.</p>
+          <a routerLink="/patient/prescriptions" class="btn btn-primary">Ver Recetas</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Mi Perfil</h5>
+          <p class="card-text">Actualiza tu información personal.</p>
+          <a routerLink="/patient/profile" class="btn btn-primary">Ver Perfil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>   

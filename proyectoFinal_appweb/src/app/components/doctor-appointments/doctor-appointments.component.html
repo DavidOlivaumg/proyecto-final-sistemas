@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <h2>Citas Programadas</h2>
+  
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <label for="dateFilter" class="form-label">Filtrar por fecha:</label>
+      <input type="date" id="dateFilter" class="form-control" [(ngModel)]="selectedDate" (change)="applyFilters()">
+    </div>
+    <div class="col-md-6">
+      <label for="statusFilter" class="form-label">Filtrar por estado:</label>
+      <select id="statusFilter" class="form-select" [(ngModel)]="filterStatus" (change)="applyFilters()">
+        <option value="all">Todos</option>
+        <option value="scheduled">Programadas</option>
+        <option value="completed">Completadas</option>
+        <option value="canceled">Canceladas</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of filteredAppointments">
+          <td>{{ appointment.patient.firstName }} {{ appointment.patient.lastName }}</td>
+          <td>{{ appointment.appointmentDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ appointment.startTime }} - {{ appointment.endTime }}</td>
+          <td>
+            <span [ngClass]="{
+              'badge bg-primary': appointment.status === 'SCHEDULED',
+              'badge bg-success': appointment.status === 'COMPLETED',
+              'badge bg-danger': appointment.status === 'CANCELED'
+            }">
+              {{ appointment.status | lowercase }}
+            </span>
+          </td>
+          <td>
+            <div class="btn-group" role="group">
+              <button *ngIf="appointment.status === 'SCHEDULED'" 
+                      class="btn btn-success btn-sm" 
+                      (click)="updateStatus(appointment, 'COMPLETED')">
+                Completar
+              </button>
+              <button *ngIf="appointment.status === 'SCHEDULED'" 
+                      class="btn btn-danger btn-sm ms-2" 
+                      (click)="updateStatus(appointment, 'CANCELED')">
+                Cancelar
+              </button>
+              <button class="btn btn-info btn-sm ms-2" 
+                      [routerLink]="['/doctor/prescriptions/create', appointment.appointmentId]">
+                Receta
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
